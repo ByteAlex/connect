@@ -81,6 +81,22 @@ public class ConnectRabbitMQSettings {
         return this.withAddresses(new Address(host));
     }
 
+    public ConnectRabbitMQSettings withVHost(final String vhost) {
+        senderOptions.getConnectionFactory().setVirtualHost(vhost);
+        receiverOptions.getConnectionFactory().setVirtualHost(vhost);
+        return this;
+    }
+
+    public ConnectRabbitMQSettings withUri(final String vhost) {
+        try {
+            senderOptions.getConnectionFactory().setUri(vhost);
+            receiverOptions.getConnectionFactory().setUri(vhost);
+            return this;
+        } catch (final Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     /**
      * The username to use for authorization.
      *
